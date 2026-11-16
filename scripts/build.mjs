@@ -28,6 +28,7 @@ export async function build() {
     '__COURSE_OPTIONS__': courses.map(c => `<option value="${c.id}">${c.title}</option>`).join(''),
     '__EMAIL__': escape(company.email), '__WEBSITE__': escape(company.website),
     '__SITE_URL__': escape(company.siteUrl), '__YEAR__': new Date().getFullYear(),
+    '__BUILD_REVISION__': escape(process.env.GITHUB_SHA || 'local'),
   };
   for (const [key, value] of Object.entries(replacements)) html = html.replaceAll(key, String(value));
   if (/__[A-Z_]+__/.test(html)) throw new Error('Unresolved template placeholder');

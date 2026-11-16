@@ -5,6 +5,7 @@ import { chromium } from 'playwright-core';
 import AxeBuilder from '@axe-core/playwright';
 import { root } from './build.mjs';
 import { join } from 'node:path';
+import { verifyDeployment } from './verify-deployment.mjs';
 
 const port = 4322;
 const base = `http://127.0.0.1:${port}/BlueSecurity-Edu/`;
@@ -23,7 +24,8 @@ try {
       try { await access(path); executablePath = path; break; } catch { /* Try next installed browser. */ }
     }
   }
-  browser = await chromium.launch(executablePath ? { executablePath, headless: true } : { channel: 'chrome', headless: true });
+  await verifyDeployment(base, process.env.GITHUB_SHA || 'local');
+  browser = await chromium.launch({ headless: true, ...(executablePath ? { executablePath } : {}) });
   const context = await browser.newContext({ viewport: { width: 1440, height: 1000 }, reducedMotion: 'reduce' });
   const page = await context.newPage();
   const errors = [];
