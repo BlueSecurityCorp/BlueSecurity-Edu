@@ -8,9 +8,8 @@ export function createPages(base) {
   const cta = () => `<section class="contact-section"><div class="container"><div class="compact-cta"><div><h2>필요한 교육을 문의하세요</h2><p>교육 대상·인원·희망 일정을 알려주세요.</p></div>${link('contact/', `교육 문의 ${icon('arrow')}`, 'button')}</div></div></section>`;
   const heading = (title, description = '') => `<header class="page-heading"><div class="container"><h1 tabindex="-1">${title}</h1>${description ? `<p>${description}</p>` : ''}</div></header>`;
   const cards = (headingTag = 'h2') => `<div class="course-grid">${courses.map(course => `<article class="course-card"><div class="course-body">
-    <div class="course-meta"><span>${course.label}</span><span>${course.level}</span></div>
+    <div class="course-meta">${course.label}</div>
     <${headingTag}>${course.title}</${headingTag}><p>${course.description}</p>
-    <ul class="tags">${course.tags.map(tag => `<li>${tag}</li>`).join('')}</ul>
     ${link(`courses/${course.id}/`, `${course.title} 자세히 보기 ${icon('arrow')}`, 'course-link')}
     </div></article>`).join('')}</div>`;
 
@@ -34,7 +33,7 @@ export function createPages(base) {
       id: course.id, path: `courses/${course.id}/`, nav: 'courses', title: `${course.title} 교육 | BlueSecurity EDU`, description: course.description,
       content: `<header class="page-heading"><div class="container">
         <nav class="breadcrumbs" aria-label="현재 위치">${link('courses/', '교육과정')}<span aria-hidden="true">/</span><span aria-current="page">${course.title}</span></nav>
-        <h1 tabindex="-1">${course.title}</h1><p>${course.description}</p><ul class="tags"><li>${course.level}</li>${course.tags.map(tag => `<li>${tag}</li>`).join('')}</ul>
+        <h1 tabindex="-1">${course.title}</h1><p>${course.description}</p>
         </div></header><section class="section course-detail"><div class="container">
         <nav class="course-navigation" aria-label="다른 교육과정">${courses.map(item => `<a href="${base}courses/${item.id}/" data-link${item.id === course.id ? ' aria-current="page"' : ''}>${item.title}</a>`).join('')}</nav>
         <div class="curriculum-panel"><div class="panel-intro"><h2>수강 안내</h2><dl class="course-facts">
