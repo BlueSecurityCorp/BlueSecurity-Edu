@@ -1,6 +1,6 @@
-import { mkdir, readFile, writeFile, cp } from 'node:fs/promises';
+import { mkdir, readFile, writeFile, cp, readdir, unlink } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
-import { resolve, join } from 'node:path';
+import { resolve, join, basename, sep } from 'node:path';
 import { company } from '../src/data/courses.mjs';
 import { createPages, escape } from '../src/pages.mjs';
 
@@ -12,9 +12,14 @@ export async function build() {
   const pages = createPages(base);
   const layout = await readFile(join(root, 'src/index.html'), 'utf8');
   await mkdir(dist, { recursive: true });
+  const pageFiles = new Set(pages.map(page => resolve(dist, page.path, 'index.html')));
+  for (const file of await readdir(dist, { recursive: true })) {
+    const target = resolve(dist, file);
+    if (basename(file) === 'index.html' && !target.startsWith(join(dist, 'assets') + sep) && !pageFiles.has(target)) await unlink(target);
+  }
   await cp(join(root, 'src/assets'), join(dist, 'assets'), { recursive: true });
   for (const page of pages) {
-    const navigation = [['courses', '교육과정'], ['approach', '교육 방식'], ['faq', '자주 묻는 질문']].map(([id, label]) =>
+    const navigation = [['courses', '교육과정'], ['faq', '자주 묻는 질문']].map(([id, label]) =>
       `<a href="${base}${id}/" data-link data-nav="${id}"${page.nav === id ? ` aria-current="${page.id === id ? 'page' : 'true'}"` : ''}>${label}</a>`).join('');
     const replacements = {
       '__PRIMARY_NAV__': navigation, '__CONTACT_CURRENT__': page.id === 'contact' ? 'aria-current="page"' : '',

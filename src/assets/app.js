@@ -181,7 +181,7 @@ addEventListener('popstate', event => navigate(new URL(location.href), { mode: '
 initializePage(new URL(location.href));
 
 // Preserve links shared before the site was split into separate pages.
-const legacyRoutes = { '#courses': 'courses/', '#curriculum': 'courses/', '#approach': 'approach/', '#faq': 'faq/', '#contact': 'contact/', '#curriculum-infrastructure': 'courses/infrastructure/', '#curriculum-web': 'courses/web/', '#curriculum-pentest': 'courses/pentest/' };
+const legacyRoutes = { '#courses': 'courses/', '#curriculum': 'courses/', '#faq': 'faq/', '#contact': 'contact/', '#curriculum-infrastructure': 'courses/infrastructure/', '#curriculum-web': 'courses/web/', '#curriculum-pentest': 'courses/pentest/' };
 if (location.pathname === siteBase && legacyRoutes[location.hash]) {
   navigate(new URL(siteBase + legacyRoutes[location.hash], location.origin), { mode: 'replace' });
 }

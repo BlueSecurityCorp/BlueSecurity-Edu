@@ -9,7 +9,7 @@ import { verifyDeployment } from './verify-deployment.mjs';
 
 const port = 4322;
 const base = `http://127.0.0.1:${port}/BlueSecurity-Edu/`;
-const routes = [['', 'home'], ['courses/', 'courses'], ['courses/infrastructure/', 'infrastructure'], ['courses/web/', 'web'], ['courses/pentest/', 'pentest'], ['courses/advanced/', 'advanced'], ['approach/', 'approach'], ['faq/', 'faq'], ['contact/', 'contact']];
+const routes = [['', 'home'], ['courses/', 'courses'], ['courses/infrastructure/', 'infrastructure'], ['courses/web/', 'web'], ['courses/pentest/', 'pentest'], ['courses/advanced/', 'advanced'], ['faq/', 'faq'], ['contact/', 'contact']];
 const server = spawn(process.execPath, ['scripts/serve.mjs', '--production'], { cwd: root, env: { ...process.env, PORT: String(port) }, stdio: ['ignore', 'pipe', 'pipe'], windowsHide: true });
 let browser;
 const waitPage = (page, id) => page.waitForFunction(id => document.querySelector('main')?.dataset.page === id && !document.querySelector('main').hasAttribute('aria-busy'), id);
@@ -99,7 +99,6 @@ try {
   await click(page, '.site-header .brand', 'home');
   assert.equal(await page.locator('.course-card').count(), 4);
   await click(page, 'main .course-card .course-link[href$="/advanced/"]', 'advanced');
-  await click(page, '#main-navigation [data-nav="approach"]', 'approach');
   await click(page, '#main-navigation [data-nav="faq"]', 'faq');
   await page.locator('summary').first().click();
   assert.equal(await page.locator('details').first().getAttribute('open'), '');
@@ -167,16 +166,17 @@ try {
   assert.equal(await plain.locator('main').getAttribute('data-page'), 'contact');
   const notFound = await plain.goto(base + 'does-not-exist/');
   assert.equal(notFound.status(), 404, 'Unknown pages must not return the home page');
+  assert.equal((await plain.goto(base + 'approach/')).status(), 404, 'Removed pages must not remain in the build');
 
   // Out-of-order responses must not replace the most recently requested page.
   const raceContext = await browser.newContext({ reducedMotion: 'reduce' });
   const race = await raceContext.newPage();
   let release;
   const gate = new Promise(resolve => { release = resolve; });
-  await race.route('**/approach/', async route => { await gate; await route.continue(); });
+  await race.route('**/courses/advanced/', async route => { await gate; await route.continue(); });
   await race.goto(base);
-  const delayed = race.waitForResponse(response => response.url() === base + 'approach/');
-  await race.locator('#main-navigation [data-nav="approach"]').click();
+  const delayed = race.waitForResponse(response => response.url() === base + 'courses/advanced/');
+  await race.locator('main .course-link[href$="/advanced/"]').click();
   await click(race, '#main-navigation [data-nav="faq"]', 'faq');
   release();
   await (await delayed).finished();
@@ -203,7 +203,7 @@ try {
   await motionPage.goto(base + '#curriculum-pentest');
   await waitPage(motionPage, 'pentest');
   assert.deepEqual(errors, [], 'Browser errors or failed requests');
-  console.log('PASS: nine static pages, advanced course cards and curricula, course and custom inquiries, direct access and refresh, navigation without document reloads, back/forward and scroll, race handling, fetch fallback, motion, responsive layouts, accessibility, and no-JS navigation.');
+  console.log('PASS: eight static pages, advanced course cards and curricula, course and custom inquiries, direct access and refresh, navigation without document reloads, back/forward and scroll, race handling, fetch fallback, motion, responsive layouts, accessibility, and no-JS navigation.');
 } finally {
   await browser?.close();
   server.kill();

@@ -21,11 +21,10 @@ export function createPages(base) {
       id: 'home', path: '', nav: '', title: 'BlueSecurity EDU | 실무로 연결되는 보안교육',
       description: '블루시큐리티 보안교육. 인프라 진단, 웹 취약점 진단, 모의침투까지 실무에 필요한 보안 역량을 학습합니다.',
       content: `<section class="hero" aria-labelledby="hero-title"><div class="container hero-grid"><div class="hero-copy">
-        <p class="eyebrow hero-eyebrow">BlueSecurity Education</p>
         <h1 id="hero-title" tabindex="-1">실무에 필요한 보안교육,<br><span>블루시큐리티에서 시작하세요.</span></h1>
         <p class="hero-description">인프라 진단 · 웹 취약점 진단 · 모의침투<br>기본 원리부터 실습, 결과 보고서 작성까지 학습합니다.</p>
         <div class="hero-actions">${link('courses/', `교육과정 살펴보기 ${icon('arrow')}`, 'button')}${link('contact/', '맞춤 교육 문의', 'button button-secondary')}</div>
-        </div></div></section><section class="section" aria-labelledby="courses-title"><div class="container"><div class="section-heading"><p class="eyebrow">교육과정</p><h2 id="courses-title">업무에 맞는 보안 역량을 학습하세요</h2></div>${cards('h3')}</div></section>`,
+        </div></div></section><section class="section" aria-labelledby="courses-title"><div class="container"><h2 id="courses-title" class="section-heading">교육과정</h2>${cards('h3')}</div></section>`,
     },
     {
       id: 'courses', path: 'courses/', nav: 'courses', title: '교육과정 | BlueSecurity EDU',
@@ -58,15 +57,6 @@ export function createPages(base) {
         </div>${modules(course)}</article>`).join('')}
         </div></section><section class="contact-section"><div class="container"><div class="compact-cta"><div><h2>그 밖의 교육 커리큘럼</h2><p>필요한 교육 주제와 대상을 알려주세요.</p></div>
         ${link('contact/?course=consultation', `커리큘럼 문의 ${icon('arrow')}`, 'button')}</div></div></section>`,
-    },
-    {
-      id: 'approach', path: 'approach/', nav: 'approach', title: '교육 방식 | BlueSecurity EDU',
-      description: '원리 이해부터 진단 실습, 보고서 작성까지 이어지는 블루시큐리티 보안교육의 학습 방식입니다.',
-      content: `${heading('교육 방식', '이해부터 진단 결과 작성까지 단계별로 학습합니다.')}<section class="section"><div class="container"><div class="approach-grid">
-        <article class="approach-item"><span class="step-number">01</span><h2>원리 이해</h2><p>시스템 구조와 취약점의 원인, 진단 기준을 학습합니다.</p></article>
-        <article class="approach-item"><span class="step-number">02</span><h2>진단 실습</h2><p>교육 환경에서 직접 점검하고 결과를 검증합니다.</p></article>
-        <article class="approach-item"><span class="step-number">03</span><h2>보고서 작성</h2><p>발견한 문제의 영향과 조치 방안을 정리합니다.</p></article>
-        </div></div></section>${cta()}`,
     },
     {
       id: 'faq', path: 'faq/', nav: 'faq', title: '자주 묻는 질문 | BlueSecurity EDU',
