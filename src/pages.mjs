@@ -1,20 +1,20 @@
-import { company, courses, advancedCourses } from './data/courses.mjs';
+import { company, courses, advancedCourse, advancedCourses } from './data/courses.mjs';
 
 export const escape = (value) => String(value).replace(/[&<>"']/g, char => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[char]);
 const icon = id => `<svg class="icon" aria-hidden="true"><use href="#icon-${id}"></use></svg>`;
 
 export function createPages(base) {
+  const catalog = [...courses, advancedCourse];
   const link = (path, label, className = 'text-link') => `<a class="${className}" href="${base}${path}" data-link>${label}</a>`;
   const cta = () => `<section class="contact-section"><div class="container"><div class="compact-cta"><div><h2>필요한 교육을 문의하세요</h2><p>교육 대상·인원·희망 일정을 알려주세요.</p></div>${link('contact/', `교육 문의 ${icon('arrow')}`, 'button')}</div></div></section>`;
   const heading = (title, description = '') => `<header class="page-heading"><div class="container"><h1 tabindex="-1">${title}</h1>${description ? `<p>${description}</p>` : ''}</div></header>`;
-  const cards = (headingTag = 'h2') => `<div class="course-grid">${courses.map(course => `<article class="course-card"><div class="course-body">
+  const cards = (headingTag = 'h2') => `<div class="course-grid">${catalog.map(course => `<article class="course-card"><div class="course-body">
     <div class="course-meta">${course.label}</div>
     <${headingTag}>${course.title}</${headingTag}><p>${course.description}</p>
     ${link(`courses/${course.id}/`, `${course.title} 자세히 보기 ${icon('arrow')}`, 'course-link')}
     </div></article>`).join('')}</div>`;
-  const advanced = () => `<section class="advanced-courses" aria-labelledby="advanced-courses-title"><h2 id="advanced-courses-title">기타 심화 교육</h2>
-    ${advancedCourses.map(course => `<article class="advanced-course"><div><h3>${escape(course.title)}</h3><p>${escape(course.description)}</p></div>
-    <a class="text-link" href="${base}contact/?course=${course.id}" data-link aria-label="${escape(course.title)} 교육 문의">교육 문의 ${icon('arrow')}</a></article>`).join('')}</section>`;
+  const courseNavigation = id => `<nav class="course-navigation" aria-label="다른 교육과정">${catalog.map(course => `<a href="${base}courses/${course.id}/" data-link${course.id === id ? ' aria-current="page"' : ''}>${escape(course.title)}</a>`).join('')}</nav>`;
+  const modules = course => `<ol class="module-list">${course.modules.map((module, index) => `<li><span class="module-number">0${index + 1}</span><div><h3>${escape(module.title)}</h3><p>${escape(module.description)}</p></div></li>`).join('')}</ol>`;
 
   return [
     {
@@ -25,12 +25,12 @@ export function createPages(base) {
         <h1 id="hero-title" tabindex="-1">실무에 필요한 보안교육,<br><span>블루시큐리티에서 시작하세요.</span></h1>
         <p class="hero-description">인프라 진단 · 웹 취약점 진단 · 모의침투<br>기본 원리부터 실습, 결과 보고서 작성까지 학습합니다.</p>
         <div class="hero-actions">${link('courses/', `교육과정 살펴보기 ${icon('arrow')}`, 'button')}${link('contact/', '맞춤 교육 문의', 'button button-secondary')}</div>
-        </div></div></section><section class="section" aria-labelledby="courses-title"><div class="container"><div class="section-heading"><p class="eyebrow">교육과정</p><h2 id="courses-title">업무에 맞는 보안 역량을 학습하세요</h2></div>${cards('h3')}${advanced()}</div></section>`,
+        </div></div></section><section class="section" aria-labelledby="courses-title"><div class="container"><div class="section-heading"><p class="eyebrow">교육과정</p><h2 id="courses-title">업무에 맞는 보안 역량을 학습하세요</h2></div>${cards('h3')}</div></section>`,
     },
     {
       id: 'courses', path: 'courses/', nav: 'courses', title: '교육과정 | BlueSecurity EDU',
-      description: '인프라 진단, 웹 취약점 진단, 모의침투 교육과정을 비교하고 대상과 커리큘럼을 확인하세요.',
-      content: `${heading('교육과정', '업무와 경험에 맞는 과정을 선택하세요.')}<section class="section"><div class="container">${cards()}${advanced()}</div></section>${cta()}`,
+      description: '인프라 진단, 웹 취약점 진단, 모의침투와 기타 심화 교육의 내용을 확인하세요.',
+      content: `${heading('교육과정', '업무와 경험에 맞는 과정을 선택하세요.')}<section class="section"><div class="container">${cards()}</div></section>${cta()}`,
     },
     ...courses.map(course => ({
       id: course.id, path: `courses/${course.id}/`, nav: 'courses', title: `${course.title} 교육 | BlueSecurity EDU`, description: course.description,
@@ -38,13 +38,27 @@ export function createPages(base) {
         <nav class="breadcrumbs" aria-label="현재 위치">${link('courses/', '교육과정')}<span aria-hidden="true">/</span><span aria-current="page">${course.title}</span></nav>
         <h1 tabindex="-1">${course.title}</h1><p>${course.description}</p>
         </div></header><section class="section course-detail"><div class="container">
-        <nav class="course-navigation" aria-label="다른 교육과정">${courses.map(item => `<a href="${base}courses/${item.id}/" data-link${item.id === course.id ? ' aria-current="page"' : ''}>${item.title}</a>`).join('')}</nav>
+        ${courseNavigation(course.id)}
         <div class="curriculum-panel"><div class="panel-intro"><h2>수강 안내</h2><dl class="course-facts">
         <div><dt>추천 대상</dt><dd>${course.audience}</dd></div><div><dt>선수 지식</dt><dd>${course.prerequisites}</dd></div><div><dt>학습 산출물</dt><dd>${course.outcome}</dd></div></dl>
         ${link(`contact/?course=${course.id}`, `이 과정 교육 문의 ${icon('arrow')}`, 'button')}
-        </div><div><h2 class="curriculum-title">커리큘럼</h2><ol class="module-list">${course.modules.map((module, index) => `<li><span class="module-number">0${index + 1}</span><div><h3>${module.title}</h3><p>${module.description}</p></div></li>`).join('')}</ol></div></div>
+        </div><div><h2 class="curriculum-title">커리큘럼</h2>${modules(course)}</div></div>
         </div></section>`,
     })),
+    {
+      id: advancedCourse.id, path: `courses/${advancedCourse.id}/`, nav: 'courses',
+      title: `${advancedCourse.title} | BlueSecurity EDU`, description: advancedCourse.description,
+      content: `<header class="page-heading"><div class="container">
+        <nav class="breadcrumbs" aria-label="현재 위치">${link('courses/', '교육과정')}<span aria-hidden="true">/</span><span aria-current="page">${advancedCourse.title}</span></nav>
+        <h1 tabindex="-1">${advancedCourse.title}</h1><p>${advancedCourse.description}</p>
+        </div></header><section class="section course-detail"><div class="container">${courseNavigation(advancedCourse.id)}
+        ${advancedCourses.map(course => `<article class="curriculum-panel advanced-curriculum" aria-labelledby="${course.id}-title"><div class="panel-intro">
+        <h2 id="${course.id}-title">${escape(course.title)}</h2><p>${escape(course.description)}</p>
+        ${link(`contact/?course=${course.id}`, `이 과정 교육 문의 ${icon('arrow')}`, 'button')}
+        </div>${modules(course)}</article>`).join('')}
+        </div></section><section class="contact-section"><div class="container"><div class="compact-cta"><div><h2>그 밖의 교육 커리큘럼</h2><p>필요한 교육 주제와 대상을 알려주세요.</p></div>
+        ${link('contact/?course=consultation', `커리큘럼 문의 ${icon('arrow')}`, 'button')}</div></div></section>`,
+    },
     {
       id: 'approach', path: 'approach/', nav: 'approach', title: '교육 방식 | BlueSecurity EDU',
       description: '원리 이해부터 진단 실습, 보고서 작성까지 이어지는 블루시큐리티 보안교육의 학습 방식입니다.',

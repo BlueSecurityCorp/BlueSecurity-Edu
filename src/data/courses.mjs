@@ -5,14 +5,31 @@ export const company = {
   siteUrl: 'https://BlueSecurityCorp.github.io/BlueSecurity-Edu/',
 };
 
+export const advancedCourse = {
+  id: 'advanced', label: 'ADVANCED SECURITY', title: '기타 심화 교육',
+  description: 'CI/CD·소프트웨어 공급망과 바이브코딩 등 개발·배포 과정의 보안을 학습합니다.',
+};
+
 export const advancedCourses = [
   {
     id: 'cicd-supply-chain', title: 'CI/CD·소프트웨어 공급망 보안',
     description: 'CI/CD 파이프라인과 의존성, 빌드·배포 산출물의 보안을 점검합니다.',
+    modules: [
+      { title: '저장소와 파이프라인 접근 통제', description: '코드 검토, 워크플로 권한, 외부 입력과 실행 환경의 보안 점검' },
+      { title: '비밀정보와 배포 인증', description: '자격증명 관리, 최소 권한, OIDC 기반 배포 인증과 허용 조건 검증' },
+      { title: '의존성과 소프트웨어 구성요소', description: '패키지 출처와 취약점 확인, SBOM 작성, 보안 검사와 배포 조건 연결' },
+      { title: '산출물 검증과 안전한 배포', description: '빌드 출처와 무결성 확인, 배포·복구 실습, 개선 결과 정리' },
+    ],
   },
   {
     id: 'vibe-coding-security', title: '바이브코딩 보안',
     description: 'AI가 생성한 코드의 취약점과 데이터 접근 권한, 개발 도구의 보안을 점검합니다.',
+    modules: [
+      { title: '보안 요구사항과 생성 코드 검토', description: '역할·데이터 소유권 정의, 코드 변경과 의존성 검토, 요청 범위 밖 수정 확인' },
+      { title: '인증·인가와 데이터 보호', description: '서버 측 권한 검사, 사용자 간 데이터 격리, 입력 처리와 비밀정보 노출 점검' },
+      { title: 'AI 도구와 에이전트 권한', description: '프롬프트 인젝션, MCP 도구의 파일·명령·네트워크 접근 범위 검증' },
+      { title: '보안 테스트와 배포 전 검증', description: '취약점 수정, 회귀 테스트, 실행 결과 확인과 배포 판단' },
+    ],
   },
 ];
 
