@@ -1,0 +1,20 @@
+{
+  "name": "bluesecurity-edu",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "블루시큐리티 보안교육 랜딩페이지",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "dev": "node scripts/serve.mjs",
+    "build": "node scripts/build.mjs",
+    "preview": "node scripts/serve.mjs --production",
+    "test": "node scripts/verify-browser.mjs"
+  },
+  "devDependencies": {
+    "@axe-core/playwright": "^4.14.0",
+    "playwright-core": "^1.65.1"
+  }
+}
