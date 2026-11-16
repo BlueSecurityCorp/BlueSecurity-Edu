@@ -5,6 +5,17 @@ export const company = {
   siteUrl: 'https://BlueSecurityCorp.github.io/BlueSecurity-Edu/',
 };
 
+export const advancedCourses = [
+  {
+    id: 'cicd-supply-chain', title: 'CI/CD·소프트웨어 공급망 보안',
+    description: 'CI/CD 파이프라인과 의존성, 빌드·배포 산출물의 보안을 점검합니다.',
+  },
+  {
+    id: 'vibe-coding-security', title: '바이브코딩 보안',
+    description: 'AI가 생성한 코드의 취약점과 데이터 접근 권한, 개발 도구의 보안을 점검합니다.',
+  },
+];
+
 // 교육 운영 정보가 확정되면 이 파일과 src/pages.mjs의 안내 문구를 함께 갱신합니다.
 export const courses = [
   {
