@@ -2,7 +2,7 @@ export const company = {
   name: 'BlueSecurity',
   email: 'blue@bluesecurity.online',
   website: 'https://www.bluesecurity.online',
-  siteUrl: 'https://BlueSecurityCorp.github.io/BlueSecurity_Edu/',
+  siteUrl: 'https://BlueSecurityCorp.github.io/BlueSecurity-Edu/',
 };
 
 // 교육 운영 정보가 확정되면 이 파일과 src/index.html의 안내 문구를 함께 갱신합니다.

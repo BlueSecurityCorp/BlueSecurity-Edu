@@ -12,7 +12,7 @@ npm run build
 npm run preview
 ```
 
-로컬 주소: `http://127.0.0.1:4321/BlueSecurity_Edu/`
+로컬 주소: `http://127.0.0.1:4321/BlueSecurity-Edu/`
 
 개발 서버는 페이지를 새로고침할 때 소스를 다시 빌드합니다. 빌드 결과는 `dist/`에 생성됩니다.
 
@@ -30,24 +30,32 @@ npm run preview
 
 ## GitHub Pages
 
-- 저장소: `BlueSecurityCorp/BlueSecurity_Edu`
+- 저장소: `BlueSecurityCorp/BlueSecurity-Edu`
 - 배포 브랜치: `main`
-- 기본 배포 주소: `https://BlueSecurityCorp.github.io/BlueSecurity_Edu/`
+- 기본 배포 주소: `https://BlueSecurityCorp.github.io/BlueSecurity-Edu/`
 - 회사 본 사이트의 `CNAME`은 사용하지 않습니다.
 
-처음 배포할 때:
+GitHub Desktop에서 처음 게시할 때:
 
-1. **BlueSecurityCorp** 조직에 빈 공개 저장소 `BlueSecurity_Edu`를 생성합니다.
+1. 로컬 `BlueSecurity-Edu` 폴더를 열고 **Publish repository**를 선택합니다.
+2. **Name**은 `BlueSecurity-Edu`, **Organization**은 `BlueSecurityCorp`로 지정하고 **Keep this code private**를 해제합니다.
+3. **Publish Repository**를 누릅니다. 원격 저장소 생성과 업로드, `origin` 연결이 함께 처리됩니다.
+4. GitHub 저장소 **Settings → Pages → Source**를 **GitHub Actions**로 선택합니다.
+5. **Actions → Deploy to GitHub Pages → Run workflow**로 배포합니다. Pages 설정 전 최초 실행이 실패했더라도 이 단계에서 다시 실행할 수 있습니다.
+
+저장소를 웹에서 직접 생성하는 경우:
+
+1. **BlueSecurityCorp** 조직에 빈 공개 저장소 `BlueSecurity-Edu`를 생성합니다.
 2. 저장소 **Settings → Pages → Build and deployment → Source**를 **GitHub Actions**로 선택합니다.
 3. 이 프로젝트의 `main` 브랜치를 해당 저장소에 push합니다.
 4. **Actions → Deploy to GitHub Pages**의 배포 성공을 확인합니다.
 
 ```sh
-git remote add origin https://github.com/BlueSecurityCorp/BlueSecurity_Edu.git
+git remote add origin https://github.com/BlueSecurityCorp/BlueSecurity-Edu.git
 git push -u origin main
 ```
 
-`origin`이 이미 설정되어 있다면 `git remote -v`로 대상이 `BlueSecurityCorp/BlueSecurity_Edu`인지 확인합니다. 이후 `main`에 push하면 자동으로 빌드·배포됩니다. 빌드에는 외부 패키지나 저장소 비밀값이 필요하지 않습니다. 저장소 이름 또는 도메인을 변경하면 `src/data/courses.mjs`의 `company.siteUrl`도 수정하세요.
+실제 GitHub 저장소를 생성한 뒤에만 `origin`을 연결합니다. `origin`이 이미 설정되어 있다면 `git remote -v`로 대상이 `BlueSecurityCorp/BlueSecurity-Edu`인지 확인합니다. 이후 `main`에 push하면 자동으로 빌드·배포됩니다. 빌드에는 외부 패키지나 저장소 비밀값이 필요하지 않습니다. 저장소 이름 또는 도메인을 변경하면 `src/data/courses.mjs`의 `company.siteUrl`도 수정하세요.
 
 워크플로는 GitHub의 [사용자 지정 Pages 워크플로 안내](https://docs.github.com/en/pages/getting-started-with-github-pages/using-custom-workflows-with-github-pages)를 따릅니다.
 

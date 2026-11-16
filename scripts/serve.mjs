@@ -13,7 +13,7 @@ const server = createServer(async (request, response) => {
     if (!production && new URL(request.url, 'http://localhost').pathname.endsWith('/')) await build();
     let path = decodeURIComponent(new URL(request.url, 'http://localhost').pathname);
     // Mirrors the project subpath used by GitHub Pages for local verification.
-    if (path.startsWith('/BlueSecurity_Edu/')) path = path.slice('/BlueSecurity_Edu'.length);
+    if (path.startsWith('/BlueSecurity-Edu/')) path = path.slice('/BlueSecurity-Edu'.length);
     let target = resolve(directory, `.${path}`);
     if (target !== directory && !target.startsWith(directory + sep)) { response.writeHead(403).end(); return; }
     if ((await stat(target)).isDirectory()) target = resolve(target, 'index.html');
@@ -24,4 +24,4 @@ const server = createServer(async (request, response) => {
     response.writeHead(404, { 'Content-Type': 'text/plain; charset=utf-8' }).end('Not found');
   }
 });
-server.listen(port, '127.0.0.1', () => console.log(`Local: http://127.0.0.1:${port}/BlueSecurity_Edu/`));
+server.listen(port, '127.0.0.1', () => console.log(`Local: http://127.0.0.1:${port}/BlueSecurity-Edu/`));

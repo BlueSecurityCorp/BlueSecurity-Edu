@@ -7,7 +7,7 @@ import { root } from './build.mjs';
 import { join } from 'node:path';
 
 const port = 4322;
-const base = `http://127.0.0.1:${port}/BlueSecurity_Edu/`;
+const base = `http://127.0.0.1:${port}/BlueSecurity-Edu/`;
 const server = spawn(process.execPath, ['scripts/serve.mjs', '--production'], { cwd: root, env: { ...process.env, PORT: String(port) }, stdio: ['ignore', 'pipe', 'pipe'], windowsHide: true });
 let browser;
 try {
