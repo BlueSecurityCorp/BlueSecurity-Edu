@@ -3,25 +3,26 @@
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>BlueSecurity EDU | 실무로 연결되는 보안교육</title>
-    <meta name="description" content="블루시큐리티 보안교육. 인프라 진단, 웹 취약점 진단, 모의침투까지. 원리의 이해에서 실습과 보고서 작성으로 이어지는 교육과정을 만나보세요.">
+    <title>__PAGE_TITLE__</title>
+    <meta name="description" content="__PAGE_DESCRIPTION__">
     <meta name="theme-color" content="#2563eb">
+    <meta name="site-base" content="__BASE_PATH__">
     <meta name="build-revision" content="__BUILD_REVISION__">
     <meta name="referrer" content="strict-origin-when-cross-origin">
     <meta property="og:type" content="website">
     <meta property="og:locale" content="ko_KR">
-    <meta property="og:title" content="BlueSecurity EDU | 실무로 연결되는 보안교육">
-    <meta property="og:description" content="인프라 진단 · 웹 취약점 진단 · 모의침투. 보안을 이해하는 것을 넘어, 직접 진단하는 힘을 기릅니다.">
-    <meta property="og:url" content="__SITE_URL__">
+    <meta property="og:title" content="__PAGE_TITLE__">
+    <meta property="og:description" content="__PAGE_DESCRIPTION__">
+    <meta property="og:url" content="__PAGE_URL__">
     <meta property="og:image" content="__SITE_URL__assets/og-cover.png">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
     <meta name="twitter:card" content="summary_large_image">
-    <link rel="canonical" href="__SITE_URL__">
-    <link rel="icon" type="image/svg+xml" href="./assets/favicon.svg">
-    <link rel="preload" href="./assets/PretendardVariable.woff2" as="font" type="font/woff2" crossorigin>
-    <link rel="stylesheet" href="./assets/styles.css">
-    <script src="./assets/app.js" defer></script>
+    <link rel="canonical" href="__PAGE_URL__">
+    <link rel="icon" type="image/svg+xml" href="__BASE_PATH__assets/favicon.svg">
+    <link rel="preload" href="__BASE_PATH__assets/PretendardVariable.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="stylesheet" href="__BASE_PATH__assets/styles.css?v=__BUILD_REVISION__">
+    <script src="__BASE_PATH__assets/app.js?v=__BUILD_REVISION__" defer></script>
   </head>
   <body>
     <a class="skip-link" href="#main">본문으로 바로가기</a>
@@ -42,73 +43,19 @@
 
     <header class="site-header">
       <div class="container header-inner">
-        <a class="brand" href="./" aria-label="BlueSecurity EDU 홈"><img src="./assets/bluesecurity-wordmark.png" width="160" height="32" alt="BlueSecurity"><span class="brand-divider"></span><span class="brand-edu">EDU</span></a>
+        <a class="brand" href="__BASE_PATH__" data-link aria-label="BlueSecurity EDU 홈"><img src="__BASE_PATH__assets/bluesecurity-wordmark.png" width="160" height="32" alt="BlueSecurity"><span class="brand-divider"></span><span class="brand-edu">EDU</span></a>
         <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="main-navigation" aria-label="메뉴 열기"><span></span><span></span></button>
         <nav id="main-navigation" class="main-navigation" aria-label="주 메뉴">
-          <a href="#courses">교육과정</a><a href="#curriculum">커리큘럼</a><a href="#approach">교육 방식</a><a href="#faq">자주 묻는 질문</a>
-          <a class="button button-small" href="#contact">교육 문의 <svg class="icon" aria-hidden="true"><use href="#icon-external"/></svg></a>
+          __PRIMARY_NAV__
+          <a class="button button-small" href="__BASE_PATH__contact/" data-link data-nav="contact" __CONTACT_CURRENT__>교육 문의 <svg class="icon" aria-hidden="true"><use href="#icon-external"/></svg></a>
         </nav>
       </div>
     </header>
 
-    <main id="main">
-      <section class="hero" aria-labelledby="hero-title">
-        <div class="container hero-grid">
-          <div class="hero-copy">
-            <p class="eyebrow hero-eyebrow">BlueSecurity Education</p>
-            <h1 id="hero-title">실무에 필요한 보안교육,<br><span>블루시큐리티에서 시작하세요.</span></h1>
-            <p class="hero-description">인프라 진단 · 웹 취약점 진단 · 모의침투<br>기본 원리부터 실습, 결과 보고서 작성까지 학습합니다.</p>
-            <div class="hero-actions"><a class="button" href="#courses">교육과정 살펴보기 <svg class="icon" aria-hidden="true"><use href="#icon-arrow"/></svg></a><a class="button button-secondary" href="#contact">맞춤 교육 문의</a></div>
-          </div>
-        </div>
-      </section>
-
-      <section id="courses" class="section courses-section" aria-labelledby="courses-title">
-        <div class="container">
-          <div class="section-heading"><p class="eyebrow">교육과정</p><h2 id="courses-title">업무에 맞는 보안 역량을 학습하세요</h2></div>
-          <div class="course-grid">__COURSE_CARDS__</div>
-        </div>
-      </section>
-
-      <section id="curriculum" class="section curriculum-section" aria-labelledby="curriculum-title">
-        <div class="container">
-          <div class="section-heading"><p class="eyebrow">커리큘럼</p><h2 id="curriculum-title">과정별 주요 학습 내용</h2></div>
-          <div class="curriculum-tabs" aria-label="교육과정 선택">__CURRICULUM_TABS__</div>
-          <div class="curriculum-content">__CURRICULUM_PANELS__</div>
-          <p class="curriculum-note">기본 구성안이며, 교육 범위·시간·실습 환경은 상담 시 확정합니다.</p>
-        </div>
-      </section>
-
-      <section id="approach" class="section approach-section" aria-labelledby="approach-title">
-        <div class="container">
-          <div class="section-heading"><p class="eyebrow">교육 방식</p><h2 id="approach-title">이해부터 진단 결과 작성까지</h2></div>
-          <div class="approach-grid">
-            <article class="approach-item"><span class="step-number">01</span><h3>원리 이해</h3><p>시스템 구조와 취약점의 원인, 진단 기준을 학습합니다.</p></article>
-            <article class="approach-item"><span class="step-number">02</span><h3>진단 실습</h3><p>교육 환경에서 직접 점검하고 결과를 검증합니다.</p></article>
-            <article class="approach-item"><span class="step-number">03</span><h3>보고서 작성</h3><p>발견한 문제의 영향과 조치 방안을 정리합니다.</p></article>
-          </div>
-          <p class="curriculum-note">실습은 사전 허가된 범위의 격리된 교육 환경에서 진행합니다.</p>
-        </div>
-      </section>
-
-      <section id="faq" class="section faq-section" aria-labelledby="faq-title">
-        <div class="container faq-grid"><div><p class="eyebrow">FAQ</p><h2 id="faq-title">자주 묻는 질문</h2></div>
-          <div class="faq-list">
-            <details><summary>보안 경험이 없어도 수강할 수 있나요?<span aria-hidden="true">+</span></summary><p>인프라·웹 진단은 기초부터 다룹니다. 운영체제, 네트워크 또는 웹의 기본 지식을 권장하며, 모의침투는 진단 경험자를 위한 과정입니다.</p></details>
-            <details><summary>기업·기관 단체 교육이 가능한가요?<span aria-hidden="true">+</span></summary><p>교육 대상, 인원, 희망 일정과 학습 목표를 보내주시면 교육 범위와 운영 방식을 협의합니다.</p></details>
-            <details><summary>일정·비용·교육 방식은 어떻게 확인하나요?<span aria-hidden="true">+</span></summary><p>개설 일정, 비용, 온라인·오프라인 여부와 실습 준비물은 교육 문의를 통해 확인해 주세요.</p></details>
-          </div>
-        </div>
-      </section>
-
-      <section id="contact" class="contact-section" aria-labelledby="contact-title">
-        <div class="container"><div class="contact-grid"><div class="contact-copy"><p class="eyebrow">교육 문의</p><h2 id="contact-title">필요한 교육을 문의하세요</h2><p>교육 대상·인원·희망 일정을 알려주세요.</p></div>
-          <div class="contact-card"><label for="inquiry-course">관심 교육과정</label><select id="inquiry-course"><option value="consultation">과정 선택 상담 / 기업 맞춤 교육</option>__COURSE_OPTIONS__</select><a id="email-inquiry" class="button" href="mailto:__EMAIL__?subject=%5BBlueSecurity%20EDU%5D%20%EA%B5%90%EC%9C%A1%20%EB%AC%B8%EC%9D%98">이메일로 교육 문의 <svg class="icon" aria-hidden="true"><use href="#icon-mail"/></svg></a><p class="email-hint">이메일 앱에서 문의 초안을 엽니다.</p><div class="email-address"><a href="mailto:__EMAIL__" id="contact-email">__EMAIL__</a><button type="button" id="copy-email" hidden>주소 복사</button></div><span id="copy-status" class="copy-status" role="status" aria-live="polite"></span></div>
-        </div>
-        </div>
-      </section>
+    <main id="main" data-page="__PAGE_ID__" data-nav="__NAV_SECTION__" tabindex="-1">
+__PAGE_CONTENT__
     </main>
 
-    <footer class="site-footer"><div class="container"><div class="footer-main"><a class="brand" href="./" aria-label="BlueSecurity EDU 홈"><img src="./assets/bluesecurity-wordmark.png" alt="BlueSecurity" width="160" height="32" loading="lazy"><span class="brand-divider"></span><span class="brand-edu">EDU</span></a><nav aria-label="푸터 메뉴"><a href="#courses">교육과정</a><a href="#contact">교육 문의</a><a href="__WEBSITE__" target="_blank" rel="noopener noreferrer">BlueSecurity <span aria-hidden="true">↗</span></a><a href="https://github.com/BlueSecurityCorp" target="_blank" rel="noopener noreferrer">GitHub <span aria-hidden="true">↗</span></a></nav></div><div class="footer-bottom"><span>© __YEAR__ BlueSecurity. All rights reserved.</span><span>blue@bluesecurity.online</span></div></div></footer>
+    <footer class="site-footer"><div class="container"><div class="footer-main"><a class="brand" href="__BASE_PATH__" data-link aria-label="BlueSecurity EDU 홈"><img src="__BASE_PATH__assets/bluesecurity-wordmark.png" alt="BlueSecurity" width="160" height="32" loading="lazy"><span class="brand-divider"></span><span class="brand-edu">EDU</span></a><nav aria-label="푸터 메뉴"><a href="__BASE_PATH__courses/" data-link>교육과정</a><a href="__BASE_PATH__contact/" data-link>교육 문의</a><a href="__WEBSITE__" target="_blank" rel="noopener noreferrer">BlueSecurity <span aria-hidden="true">↗</span></a><a href="https://github.com/BlueSecurityCorp" target="_blank" rel="noopener noreferrer">GitHub <span aria-hidden="true">↗</span></a></nav></div><div class="footer-bottom"><span>© __YEAR__ BlueSecurity. All rights reserved.</span><span>blue@bluesecurity.online</span></div></div></footer>
   </body>
 </html>

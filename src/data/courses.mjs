@@ -5,7 +5,7 @@ export const company = {
   siteUrl: 'https://BlueSecurityCorp.github.io/BlueSecurity-Edu/',
 };
 
-// 교육 운영 정보가 확정되면 이 파일과 src/index.html의 안내 문구를 함께 갱신합니다.
+// 교육 운영 정보가 확정되면 이 파일과 src/pages.mjs의 안내 문구를 함께 갱신합니다.
 export const courses = [
   {
     id: 'infrastructure', number: '01', label: 'INFRASTRUCTURE', title: '인프라 진단',
