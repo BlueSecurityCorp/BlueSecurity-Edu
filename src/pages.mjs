@@ -41,7 +41,7 @@ export function createPages(base) {
         <div><dt>추천 대상</dt><dd>${course.audience}</dd></div><div><dt>선수 지식</dt><dd>${course.prerequisites}</dd></div><div><dt>학습 산출물</dt><dd>${course.outcome}</dd></div></dl>
         ${link(`contact/?course=${course.id}`, `이 과정 교육 문의 ${icon('arrow')}`, 'button')}
         </div><div><h2 class="curriculum-title">커리큘럼</h2><ol class="module-list">${course.modules.map((module, index) => `<li><span class="module-number">0${index + 1}</span><div><h3>${module.title}</h3><p>${module.description}</p></div></li>`).join('')}</ol></div></div>
-        <p class="curriculum-note">기본 구성안이며, 교육 범위·시간·실습 환경은 상담 시 확정합니다.</p></div></section>`,
+        </div></section>`,
     })),
     {
       id: 'approach', path: 'approach/', nav: 'approach', title: '교육 방식 | BlueSecurity EDU',
@@ -50,7 +50,7 @@ export function createPages(base) {
         <article class="approach-item"><span class="step-number">01</span><h2>원리 이해</h2><p>시스템 구조와 취약점의 원인, 진단 기준을 학습합니다.</p></article>
         <article class="approach-item"><span class="step-number">02</span><h2>진단 실습</h2><p>교육 환경에서 직접 점검하고 결과를 검증합니다.</p></article>
         <article class="approach-item"><span class="step-number">03</span><h2>보고서 작성</h2><p>발견한 문제의 영향과 조치 방안을 정리합니다.</p></article>
-        </div><p class="curriculum-note">실습은 사전 허가된 범위의 격리된 교육 환경에서 진행합니다.</p></div></section>${cta()}`,
+        </div></div></section>${cta()}`,
     },
     {
       id: 'faq', path: 'faq/', nav: 'faq', title: '자주 묻는 질문 | BlueSecurity EDU',

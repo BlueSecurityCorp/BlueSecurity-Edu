@@ -127,7 +127,6 @@ h2 { font-size: 28px; line-height: 1.4; }
 .module-list h3 { font-size: 16px; line-height: 1.5; }
 .module-list p { font-size: 13px; color: var(--bs-color-text-secondary); margin-top: 4px; }
 .module-list .icon { display: none; }
-.curriculum-note { font-size: 12px; color: var(--bs-color-text-tertiary); margin-top: 20px; }
 .approach-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; }
 .approach-item { position: relative; padding-left: 36px; }
 .step-number { position: absolute; top: 2px; left: 0; color: var(--bs-color-primary); font-size: 14px; font-weight: 600; }
