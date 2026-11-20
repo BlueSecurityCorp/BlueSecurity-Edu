@@ -6,9 +6,11 @@ import AxeBuilder from '@axe-core/playwright';
 import { root } from './build.mjs';
 import { join } from 'node:path';
 import { verifyDeployment } from './verify-deployment.mjs';
+import { company } from '../src/data/courses.mjs';
 
 const port = 4322;
-const base = `http://127.0.0.1:${port}/BlueSecurity-Edu/`;
+const basePath = new URL(company.siteUrl).pathname;
+const base = `http://127.0.0.1:${port}${basePath}`;
 const routes = [['', 'home'], ['courses/', 'courses'], ['courses/infrastructure/', 'infrastructure'], ['courses/web/', 'web'], ['courses/pentest/', 'pentest'], ['courses/advanced/', 'advanced'], ['faq/', 'faq'], ['contact/', 'contact']];
 const server = spawn(process.execPath, ['scripts/serve.mjs', '--production'], { cwd: root, env: { ...process.env, PORT: String(port) }, stdio: ['ignore', 'pipe', 'pipe'], windowsHide: true });
 let browser;
@@ -62,12 +64,12 @@ try {
     await click(page, selector, id);
     assert.equal(await page.locator('.module-list li').count(), 4);
     assert.equal(await page.locator('#main-navigation [data-nav="courses"]').getAttribute('aria-current'), 'true');
-    assert.equal(await page.locator('.course-navigation [aria-current]').getAttribute('href'), `/BlueSecurity-Edu/courses/${id}/`);
+    assert.equal(await page.locator('.course-navigation [aria-current]').getAttribute('href'), `${basePath}courses/${id}/`);
     assert.equal(await page.evaluate(() => document.activeElement.tagName), 'H1');
     const title = await page.locator('h1').textContent();
     assert.ok((await page.title()).startsWith(title));
     assert.ok((await page.locator('meta[name="description"]').getAttribute('content')).length > 10);
-    assert.equal(new URL(await page.locator('link[rel="canonical"]').getAttribute('href')).pathname, `/BlueSecurity-Edu/courses/${id}/`);
+    assert.equal(await page.locator('link[rel="canonical"]').getAttribute('href'), new URL(`courses/${id}/`, company.siteUrl).href);
     await click(page, `main a[href$="?course=${id}"]`, 'contact');
     assert.equal(await page.locator('#inquiry-course').inputValue(), id);
     const mailto = new URL(await page.locator('#email-inquiry').getAttribute('href'));
@@ -79,7 +81,7 @@ try {
   await click(page, '#main-navigation [data-nav="courses"]', 'courses');
   assert.equal(await page.locator('.course-card').count(), 4);
   await click(page, 'main .course-card .course-link[href$="/advanced/"]', 'advanced');
-  assert.equal(await page.locator('.course-navigation [aria-current]').getAttribute('href'), '/BlueSecurity-Edu/courses/advanced/');
+  assert.equal(await page.locator('.course-navigation [aria-current]').getAttribute('href'), `${basePath}courses/advanced/`);
   assert.equal(await page.locator('.advanced-curriculum').count(), 3);
   for (const id of ['cicd-supply-chain', 'vibe-coding-security', 'privacy-protection']) {
     const title = await page.locator(`#${id}-title`).textContent();
@@ -182,7 +184,7 @@ try {
   await (await delayed).finished();
   await race.evaluate(() => new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve))));
   assert.equal(await race.locator('main').getAttribute('data-page'), 'faq');
-  assert.equal(new URL(race.url()).pathname, '/BlueSecurity-Edu/faq/');
+  assert.equal(new URL(race.url()).pathname, `${basePath}faq/`);
 
   // Fetch failures fall back to the real static page, rather than leaving a blank shell.
   const fallback = await browser.newContext({ reducedMotion: 'reduce' });

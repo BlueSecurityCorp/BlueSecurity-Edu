@@ -2,7 +2,7 @@ export const company = {
   name: 'BlueSecurity',
   email: 'blue@bluesecurity.online',
   website: 'https://www.bluesecurity.online',
-  siteUrl: 'https://BlueSecurityCorp.github.io/BlueSecurity-Edu/',
+  siteUrl: 'https://edu.bluesecurity.online/',
 };
 
 export const advancedCourse = {
