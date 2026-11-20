@@ -5,6 +5,49 @@ export const company = {
   siteUrl: 'https://edu.bluesecurity.online/',
 };
 
+export const privacyCourse = {
+  id: 'privacy-training', title: '개인정보보호 의무교육',
+  description: '개인정보 취급자를 위한 1·2·4시간 교육으로, 처리 원칙과 보호조치, 유출 대응을 익힙니다.',
+  formats: [
+    {
+      hours: 1, title: '1시간 기본교육',
+      audience: '개인정보를 취급하는 직원과 수탁업체 실무자',
+      modules: [
+        { title: '개인정보와 취급자의 역할', minutes: 10, description: '개인정보 식별, 민감정보·고유식별정보, 업무 목적과 취급 범위' },
+        { title: '수집부터 파기까지의 기본 원칙', minutes: 15, description: '수집·이용 근거, 최소 수집, 제공 전 확인, 보유기간과 파기' },
+        { title: '일상 업무의 안전한 취급', minutes: 15, description: '이메일·공유 링크·계정·출력물 관리, 외부 서비스와 AI 입력 전 확인' },
+        { title: '권리 요청과 유출 의심 상황', minutes: 15, description: '권리 요청 접수, 오발송·분실 시 내부 보고, 확산 방지와 증거 보존' },
+        { title: '확인 문제와 질의응답', minutes: 5, description: '수집·공유·사고 대응 확인 문제와 해설' },
+      ],
+    },
+    {
+      hours: 2, title: '2시간 사례교육',
+      audience: '인사·총무·영업·마케팅·고객지원 등 개인정보 취급 부서',
+      modules: [
+        { title: '개인정보 처리 원칙과 업무 책임', minutes: 15, description: '개인정보 구분, 처리 근거, 취급자·담당자 역할과 업무별 처리 흐름' },
+        { title: '수집 항목과 동의·안내 점검', minutes: 25, description: '최소 수집, 필수·선택 항목, 보유기간, 신청서·동의서 점검 사례' },
+        { title: '보관·공유·파기와 보호조치', minutes: 25, description: '접근권한, 파일 전달·암호화, 공유 설정, 파기 대상과 이력 점검' },
+        { title: '위탁·제공과 외부 서비스 이용', minutes: 20, description: '처리위탁·제3자 제공 구분, 클라우드·생성형 AI 이용 사례' },
+        { title: '정보주체 권리와 유출 대응', minutes: 25, description: '회원 탈퇴·삭제 요청과 고객 명단 오발송의 처리 순서·보고 내용 작성' },
+        { title: '확인 평가와 업무 적용', minutes: 10, description: '사례 문제 풀이, 업무 점검표와 개선 행동 작성' },
+      ],
+    },
+    {
+      hours: 4, title: '4시간 실무교육',
+      audience: '개인정보 보호책임자·담당자, 부서별·수탁업체 관리 담당자',
+      modules: [
+        { title: '처리 흐름과 관리체계', minutes: 25, description: '처리 근거, 역할과 책임, 내부 관리계획, 개인정보 처리 흐름표 작성' },
+        { title: '수집·동의·처리방침 점검', minutes: 40, description: '신청서·동의서·처리방침을 실제 업무와 대조하고 수정안 작성' },
+        { title: '위탁·제공·국외 이전 관리', minutes: 30, description: '외부 서비스의 처리 유형 분류, 위탁계약·감독, 국외 이전 확인사항' },
+        { title: '안전성 확보조치 점검', minutes: 45, description: '계정·권한·공유 설정·접속기록을 검토하고 보호조치 개선안 작성' },
+        { title: '정보주체 권리 요청 처리', minutes: 25, description: '본인 확인, 열람·삭제·처리정지, 보존 의무와 제한 사유 검토' },
+        { title: '개인정보 유출 대응 훈련', minutes: 55, description: '공개 링크 사고의 초동 보고·범위 조사, 통지·신고 요건과 기한 검토' },
+        { title: '결과 검토와 개선 계획', minutes: 20, description: '판단 근거 검토, 조치 우선순위·담당자·기한과 확인 방법 작성' },
+      ],
+    },
+  ],
+};
+
 export const advancedCourse = {
   id: 'advanced', title: '기타 심화 교육',
   description: 'CI/CD·소프트웨어 공급망, 바이브코딩 보안과 개인정보보호를 다룹니다.',

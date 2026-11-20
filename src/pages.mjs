@@ -1,10 +1,10 @@
-import { company, courses, advancedCourse, advancedCourses } from './data/courses.mjs';
+import { company, courses, privacyCourse, advancedCourse, advancedCourses } from './data/courses.mjs';
 
 export const escape = (value) => String(value).replace(/[&<>"']/g, char => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[char]);
 const icon = id => `<svg class="icon" aria-hidden="true"><use href="#icon-${id}"></use></svg>`;
 
 export function createPages(base) {
-  const catalog = [...courses, advancedCourse];
+  const catalog = [...courses, privacyCourse, advancedCourse];
   const link = (path, label, className = 'text-link') => `<a class="${className}" href="${base}${path}" data-link>${label}</a>`;
   const cta = () => `<section class="contact-section"><div class="container"><div class="compact-cta"><div><h2>필요한 교육을 문의하세요</h2><p>교육 대상·인원·희망 일정을 알려주세요.</p></div>${link('contact/', '교육 문의', 'button')}</div></div></section>`;
   const heading = (title, description = '') => `<header class="page-heading"><div class="container"><h1 tabindex="-1">${title}</h1>${description ? `<p>${description}</p>` : ''}</div></header>`;
@@ -13,12 +13,12 @@ export function createPages(base) {
     ${link(`courses/${course.id}/`, `${course.title} 자세히 보기 ${icon('arrow')}`, 'course-link')}
     </div></article>`).join('')}</div>`;
   const courseNavigation = id => `<nav class="course-navigation" aria-label="다른 교육과정">${catalog.map(course => `<a href="${base}courses/${course.id}/" data-link${course.id === id ? ' aria-current="page"' : ''}>${escape(course.title)}</a>`).join('')}</nav>`;
-  const modules = course => `<ol class="module-list">${course.modules.map((module, index) => `<li><span class="module-number">0${index + 1}</span><div><h3>${escape(module.title)}</h3><p>${escape(module.description)}</p></div></li>`).join('')}</ol>`;
+  const modules = course => `<ol class="module-list">${course.modules.map((module, index) => `<li><span class="module-number">0${index + 1}</span><div><h3>${escape(module.title)}${module.minutes ? ` <span class="module-duration">${escape(module.minutes)}분</span>` : ''}</h3><p>${escape(module.description)}</p></div></li>`).join('')}</ol>`;
 
   return [
     {
       id: 'home', path: '', nav: '', title: 'BlueSecurity EDU | 실무로 연결되는 보안교육',
-      description: '블루시큐리티 보안교육. 인프라 진단, 웹 취약점 진단, 모의침투까지 실무에 필요한 보안 역량을 학습합니다.',
+      description: '블루시큐리티 보안교육. 인프라 진단, 웹 취약점 진단, 모의침투, 개인정보보호 의무교육과 기타 심화 교육을 제공합니다.',
       content: `<section class="hero" aria-labelledby="hero-title"><div class="container hero-grid"><div class="hero-copy">
         <h1 id="hero-title" tabindex="-1">실무에 필요한 보안교육,<br><span>블루시큐리티에서 시작하세요.</span></h1>
         <p class="hero-description">인프라 진단 · 웹 취약점 진단 · 모의침투<br>기본 원리부터 실습, 결과 보고서 작성까지 학습합니다.</p>
@@ -27,7 +27,7 @@ export function createPages(base) {
     },
     {
       id: 'courses', path: 'courses/', nav: 'courses', title: '교육과정 | BlueSecurity EDU',
-      description: '인프라 진단, 웹 취약점 진단, 모의침투와 기타 심화 교육의 내용을 확인하세요.',
+      description: '인프라 진단, 웹 취약점 진단, 모의침투, 개인정보보호 의무교육과 기타 심화 교육의 내용을 확인하세요.',
       content: `${heading('교육과정')}<section class="section"><div class="container">${cards()}</div></section>${cta()}`,
     },
     ...courses.map(course => ({
@@ -43,6 +43,19 @@ export function createPages(base) {
         </div><div><h2 class="curriculum-title">커리큘럼</h2>${modules(course)}</div></div>
         </div></section>`,
     })),
+    {
+      id: privacyCourse.id, path: `courses/${privacyCourse.id}/`, nav: 'courses',
+      title: `${privacyCourse.title} | BlueSecurity EDU`, description: privacyCourse.description,
+      content: `<header class="page-heading"><div class="container">
+        <nav class="breadcrumbs" aria-label="현재 위치">${link('courses/', '교육과정')}<span aria-hidden="true">/</span><span aria-current="page">${privacyCourse.title}</span></nav>
+        <h1 tabindex="-1">${privacyCourse.title}</h1><p>${privacyCourse.description}</p>
+        </div></header><section class="section course-detail"><div class="container">${courseNavigation(privacyCourse.id)}
+        ${privacyCourse.formats.map(format => `<article class="curriculum-panel privacy-curriculum" aria-labelledby="privacy-${format.hours}h-title"><div class="panel-intro">
+        <h2 id="privacy-${format.hours}h-title">${escape(format.title)}</h2><p>${escape(format.audience)}</p>
+        ${link(`contact/?course=${privacyCourse.id}`, '교육 문의', 'button')}
+        </div>${modules(format)}</article>`).join('')}
+        </div></section>`,
+    },
     {
       id: advancedCourse.id, path: `courses/${advancedCourse.id}/`, nav: 'courses',
       title: `${advancedCourse.title} | BlueSecurity EDU`, description: advancedCourse.description,
@@ -71,7 +84,7 @@ export function createPages(base) {
       description: '블루시큐리티 보안교육의 과정 상담과 기업 맞춤 교육을 문의하세요.',
       content: `${heading('교육 문의', '교육 대상·인원·희망 일정을 알려주세요.')}<section class="contact-section"><div class="container"><div class="contact-grid">
         <div class="contact-copy"><h2>필요한 교육을 문의하세요</h2><p>관심 과정을 선택하고 이메일로 문의해 주세요.</p></div>
-        <div class="contact-card"><label for="inquiry-course">관심 교육과정</label><select id="inquiry-course"><option value="consultation">과정 선택 상담 / 기업 맞춤 교육</option>${[...courses, ...advancedCourses].map(course => `<option value="${course.id}">${escape(course.title)}</option>`).join('')}</select>
+        <div class="contact-card"><label for="inquiry-course">관심 교육과정</label><select id="inquiry-course"><option value="consultation">과정 선택 상담 / 기업 맞춤 교육</option>${[...courses, privacyCourse, ...advancedCourses].map(course => `<option value="${course.id}">${escape(course.title)}</option>`).join('')}</select>
         <a id="email-inquiry" class="button" href="mailto:${escape(company.email)}?subject=${encodeURIComponent('[BlueSecurity EDU] 교육 문의')}">이메일로 교육 문의</a>
         <p class="email-hint">이메일 앱에서 문의 초안을 엽니다.</p><div class="email-address"><a href="mailto:${escape(company.email)}" id="contact-email">${escape(company.email)}</a><button type="button" id="copy-email" hidden>주소 복사</button></div><span id="copy-status" class="copy-status" role="status" aria-live="polite"></span>
         </div></div></div></section>`,

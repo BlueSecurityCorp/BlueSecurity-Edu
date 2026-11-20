@@ -6,7 +6,7 @@ import { setTimeout } from 'node:timers/promises';
 export async function verifyDeployment(siteUrl, revision) {
   const base = new URL(siteUrl);
   assert.ok(['http:', 'https:'].includes(base.protocol), 'Expected an HTTP website URL');
-  const routes = [['', 'home'], ['courses/', 'courses'], ['courses/infrastructure/', 'infrastructure'], ['courses/web/', 'web'], ['courses/pentest/', 'pentest'], ['courses/advanced/', 'advanced'], ['faq/', 'faq'], ['contact/', 'contact']];
+  const routes = [['', 'home'], ['courses/', 'courses'], ['courses/infrastructure/', 'infrastructure'], ['courses/web/', 'web'], ['courses/pentest/', 'pentest'], ['courses/privacy-training/', 'privacy-training'], ['courses/advanced/', 'advanced'], ['faq/', 'faq'], ['contact/', 'contact']];
   const assets = new Set();
   const titles = new Set();
   await Promise.all(routes.map(async ([path, id]) => {

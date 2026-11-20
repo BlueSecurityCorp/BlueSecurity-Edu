@@ -11,7 +11,7 @@ import { company } from '../src/data/courses.mjs';
 const port = 4322;
 const basePath = new URL(company.siteUrl).pathname;
 const base = `http://127.0.0.1:${port}${basePath}`;
-const routes = [['', 'home'], ['courses/', 'courses'], ['courses/infrastructure/', 'infrastructure'], ['courses/web/', 'web'], ['courses/pentest/', 'pentest'], ['courses/advanced/', 'advanced'], ['faq/', 'faq'], ['contact/', 'contact']];
+const routes = [['', 'home'], ['courses/', 'courses'], ['courses/infrastructure/', 'infrastructure'], ['courses/web/', 'web'], ['courses/pentest/', 'pentest'], ['courses/privacy-training/', 'privacy-training'], ['courses/advanced/', 'advanced'], ['faq/', 'faq'], ['contact/', 'contact']];
 const server = spawn(process.execPath, ['scripts/serve.mjs', '--production'], { cwd: root, env: { ...process.env, PORT: String(port) }, stdio: ['ignore', 'pipe', 'pipe'], windowsHide: true });
 let browser;
 const waitPage = (page, id) => page.waitForFunction(id => document.querySelector('main')?.dataset.page === id && !document.querySelector('main').hasAttribute('aria-busy'), id);
@@ -79,8 +79,23 @@ try {
     await waitPage(page, id);
   }
   await click(page, '#main-navigation [data-nav="courses"]', 'courses');
-  assert.equal(await page.locator('.course-card').count(), 4);
-  await click(page, 'main .course-card .course-link[href$="/advanced/"]', 'advanced');
+  assert.equal(await page.locator('.course-card').count(), 5);
+  await click(page, 'main .course-card .course-link[href$="/privacy-training/"]', 'privacy-training');
+  assert.equal(await page.locator('h1').textContent(), '개인정보보호 의무교육');
+  assert.equal(await page.locator('.privacy-curriculum').count(), 3);
+  assert.equal(await page.locator('.course-navigation [aria-current]').getAttribute('href'), `${basePath}courses/privacy-training/`);
+  for (const hours of [1, 2, 4]) {
+    const durations = await page.locator(`[aria-labelledby="privacy-${hours}h-title"] .module-duration`).allTextContents();
+    assert.equal(durations.reduce((sum, duration) => sum + Number.parseInt(duration, 10), 0), hours * 60);
+  }
+  await click(page, '[aria-labelledby="privacy-1h-title"] a[href$="?course=privacy-training"]', 'contact');
+  assert.equal(await page.locator('#inquiry-course').inputValue(), 'privacy-training');
+  const privacyInquiry = new URL(await page.locator('#email-inquiry').getAttribute('href'));
+  assert.ok(privacyInquiry.searchParams.get('subject').includes('개인정보보호 의무교육'));
+  assert.ok(privacyInquiry.searchParams.get('body').includes('개인정보보호 의무교육'));
+  await page.goBack();
+  await waitPage(page, 'privacy-training');
+  await click(page, '.course-navigation a[href$="/advanced/"]', 'advanced');
   assert.equal(await page.locator('.course-navigation [aria-current]').getAttribute('href'), `${basePath}courses/advanced/`);
   assert.equal(await page.locator('.advanced-curriculum').count(), 3);
   for (const id of ['cicd-supply-chain', 'vibe-coding-security', 'privacy-protection']) {
@@ -99,8 +114,8 @@ try {
   const consultation = await page.locator('#inquiry-course option:checked').textContent();
   assert.ok(new URL(await page.locator('#email-inquiry').getAttribute('href')).searchParams.get('body').includes(consultation));
   await click(page, '.site-header .brand', 'home');
-  assert.equal(await page.locator('.course-card').count(), 4);
-  await click(page, 'main .course-card .course-link[href$="/advanced/"]', 'advanced');
+  assert.equal(await page.locator('.course-card').count(), 5);
+  await click(page, 'main .course-card .course-link[href$="/privacy-training/"]', 'privacy-training');
   await click(page, '#main-navigation [data-nav="faq"]', 'faq');
   await page.locator('summary').first().click();
   assert.equal(await page.locator('details').first().getAttribute('open'), '');
@@ -131,13 +146,13 @@ try {
     assert.deepEqual(missing, [], path);
     await page.setViewportSize({ width: 1440, height: 900 });
     await audit(page);
-    if (['home', 'web', 'advanced'].includes(id)) await page.screenshot({ path: join(root, `.artifacts/${id}-desktop.png`), fullPage: true });
+    if (['home', 'web', 'privacy-training', 'advanced'].includes(id)) await page.screenshot({ path: join(root, `.artifacts/${id}-desktop.png`), fullPage: true });
     for (const width of [320, 390, 768, 1024, 1440]) {
       await page.setViewportSize({ width, height: 900 });
       assert.ok(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth), `${id}: overflow at ${width}px`);
       if (width === 390) {
         await audit(page);
-        if (['home', 'web', 'advanced'].includes(id)) await page.screenshot({ path: join(root, `.artifacts/${id}-mobile.png`), fullPage: true });
+        if (['home', 'web', 'privacy-training', 'advanced'].includes(id)) await page.screenshot({ path: join(root, `.artifacts/${id}-mobile.png`), fullPage: true });
       }
     }
   }
@@ -160,6 +175,12 @@ try {
   assert.ok((await plain.locator('#email-inquiry').getAttribute('href')).startsWith('mailto:'));
   assert.equal(await plain.locator('#copy-email').isVisible(), false);
   assert.equal(await plain.locator('#main-navigation').isVisible(), true);
+  await plain.locator('#main-navigation [data-nav="courses"]').click();
+  await plain.locator('main .course-card .course-link[href$="/privacy-training/"]').click();
+  assert.equal(await plain.locator('main').getAttribute('data-page'), 'privacy-training');
+  assert.equal(await plain.locator('.privacy-curriculum').count(), 3);
+  await plain.locator('[aria-labelledby="privacy-1h-title"] a[href$="?course=privacy-training"]').click();
+  assert.equal(await plain.locator('main').getAttribute('data-page'), 'contact');
   await plain.locator('#main-navigation [data-nav="courses"]').click();
   await plain.locator('main .course-card .course-link[href$="/advanced/"]').click();
   assert.equal(await plain.locator('main').getAttribute('data-page'), 'advanced');
@@ -205,7 +226,7 @@ try {
   await motionPage.goto(base + '#curriculum-pentest');
   await waitPage(motionPage, 'pentest');
   assert.deepEqual(errors, [], 'Browser errors or failed requests');
-  console.log('PASS: eight static pages, advanced course cards and curricula, course and custom inquiries, direct access and refresh, navigation without document reloads, back/forward and scroll, race handling, fetch fallback, motion, responsive layouts, accessibility, and no-JS navigation.');
+  console.log('PASS: nine static pages, privacy training and advanced curricula, course and custom inquiries, direct access and refresh, navigation without document reloads, back/forward and scroll, race handling, fetch fallback, motion, responsive layouts, accessibility, and no-JS navigation.');
 } finally {
   await browser?.close();
   server.kill();
