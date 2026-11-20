@@ -9,7 +9,6 @@ export function createPages(base) {
   const cta = () => `<section class="contact-section"><div class="container"><div class="compact-cta"><div><h2>필요한 교육을 문의하세요</h2><p>교육 대상·인원·희망 일정을 알려주세요.</p></div>${link('contact/', `교육 문의 ${icon('arrow')}`, 'button')}</div></div></section>`;
   const heading = (title, description = '') => `<header class="page-heading"><div class="container"><h1 tabindex="-1">${title}</h1>${description ? `<p>${description}</p>` : ''}</div></header>`;
   const cards = (headingTag = 'h2') => `<div class="course-grid">${catalog.map(course => `<article class="course-card"><div class="course-body">
-    <div class="course-meta">${course.label}</div>
     <${headingTag}>${course.title}</${headingTag}><p>${course.description}</p>
     ${link(`courses/${course.id}/`, `${course.title} 자세히 보기 ${icon('arrow')}`, 'course-link')}
     </div></article>`).join('')}</div>`;

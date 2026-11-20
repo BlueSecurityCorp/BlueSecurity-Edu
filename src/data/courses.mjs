@@ -6,7 +6,7 @@ export const company = {
 };
 
 export const advancedCourse = {
-  id: 'advanced', label: 'ADVANCED SECURITY', title: '기타 심화 교육',
+  id: 'advanced', title: '기타 심화 교육',
   description: 'CI/CD·소프트웨어 공급망, 바이브코딩 보안과 개인정보보호를 다룹니다.',
 };
 
@@ -46,7 +46,7 @@ export const advancedCourses = [
 // 교육 운영 정보가 확정되면 이 파일과 src/pages.mjs의 안내 문구를 함께 갱신합니다.
 export const courses = [
   {
-    id: 'infrastructure', number: '01', label: 'INFRASTRUCTURE', title: '인프라 진단',
+    id: 'infrastructure', number: '01', title: '인프라 진단',
     subtitle: '안전한 시스템의 시작, 설정을 읽는 힘',
     description: '서버와 네트워크의 보안 설정을 점검하고, 취약한 구성의 원인부터 조치 방법까지 학습합니다.',
     audience: '시스템·네트워크 운영자, 인프라 보안 담당자, 기술 진단을 시작하는 분',
@@ -61,7 +61,7 @@ export const courses = [
     ],
   },
   {
-    id: 'web', number: '02', label: 'WEB SECURITY', title: '웹 취약점 진단',
+    id: 'web', number: '02', title: '웹 취약점 진단',
     subtitle: '요청과 응답 사이, 취약점의 원리를 발견하다',
     description: '웹 애플리케이션의 동작을 이해하고, 취약점의 발견·검증·개선으로 이어지는 진단 과정을 익힙니다.',
     audience: '웹 개발자, 애플리케이션 보안 담당자, 웹 취약점 진단 입문자',
@@ -76,7 +76,7 @@ export const courses = [
     ],
   },
   {
-    id: 'pentest', number: '03', label: 'PENETRATION TESTING', title: '모의침투',
+    id: 'pentest', number: '03', title: '모의침투',
     subtitle: '개별 취약점을 넘어, 공격의 흐름을 이해하다',
     description: '허가된 실습 환경에서 공격 시나리오를 설계하고, 침투 경로와 비즈니스 영향을 종합적으로 분석합니다.',
     audience: '취약점 진단 경험자, 모의침투 역량을 넓히려는 보안 실무자',
