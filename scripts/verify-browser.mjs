@@ -80,8 +80,8 @@ try {
   assert.equal(await page.locator('.course-card').count(), 4);
   await click(page, 'main .course-card .course-link[href$="/advanced/"]', 'advanced');
   assert.equal(await page.locator('.course-navigation [aria-current]').getAttribute('href'), '/BlueSecurity-Edu/courses/advanced/');
-  assert.equal(await page.locator('.advanced-curriculum').count(), 2);
-  for (const id of ['cicd-supply-chain', 'vibe-coding-security']) {
+  assert.equal(await page.locator('.advanced-curriculum').count(), 3);
+  for (const id of ['cicd-supply-chain', 'vibe-coding-security', 'privacy-protection']) {
     const title = await page.locator(`#${id}-title`).textContent();
     assert.equal(await page.locator(`[aria-labelledby="${id}-title"] .module-list li`).count(), 4);
     await click(page, `main a[href$="?course=${id}"]`, 'contact');
@@ -161,7 +161,7 @@ try {
   await plain.locator('#main-navigation [data-nav="courses"]').click();
   await plain.locator('main .course-card .course-link[href$="/advanced/"]').click();
   assert.equal(await plain.locator('main').getAttribute('data-page'), 'advanced');
-  assert.equal(await plain.locator('.advanced-curriculum').count(), 2);
+  assert.equal(await plain.locator('.advanced-curriculum').count(), 3);
   await plain.locator('main a[href$="?course=consultation"]').click();
   assert.equal(await plain.locator('main').getAttribute('data-page'), 'contact');
   const notFound = await plain.goto(base + 'does-not-exist/');

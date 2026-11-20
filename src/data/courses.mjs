@@ -7,7 +7,7 @@ export const company = {
 
 export const advancedCourse = {
   id: 'advanced', label: 'ADVANCED SECURITY', title: '기타 심화 교육',
-  description: 'CI/CD·소프트웨어 공급망과 바이브코딩 등 개발·배포 과정의 보안을 학습합니다.',
+  description: 'CI/CD·소프트웨어 공급망, 바이브코딩 보안과 개인정보보호를 다룹니다.',
 };
 
 export const advancedCourses = [
@@ -29,6 +29,16 @@ export const advancedCourses = [
       { title: '인증·인가와 데이터 보호', description: '서버 측 권한 검사, 사용자 간 데이터 격리, 입력 처리와 비밀정보 노출 점검' },
       { title: 'AI 도구와 에이전트 권한', description: '프롬프트 인젝션, MCP 도구의 파일·명령·네트워크 접근 범위 검증' },
       { title: '보안 테스트와 배포 전 검증', description: '취약점 수정, 회귀 테스트, 실행 결과 확인과 배포 판단' },
+    ],
+  },
+  {
+    id: 'privacy-protection', title: '개인정보보호',
+    description: '개인정보 수집부터 파기까지 보호조치를 점검하고, 정보주체 권리 보장과 유출 대응 절차를 익힙니다.',
+    modules: [
+      { title: '개인정보 처리 원칙과 생애주기', description: '수집·이용 근거, 최소 수집, 보유기간과 파기, 개인정보 처리 흐름 정리' },
+      { title: '처리방침과 위탁·제공 관리', description: '처리방침·동의서 점검, 처리위탁과 제3자 제공 구분, 국외 이전 요건 검토' },
+      { title: '안전성 확보조치 점검', description: '내부 관리계획, 접근권한·접근통제, 암호화·접속기록과 물리적 보호조치 점검' },
+      { title: '정보주체 권리와 유출 대응', description: '열람·정정·삭제·처리정지 요청 처리, 유출 대응·통지·신고 절차 실습' },
     ],
   },
 ];

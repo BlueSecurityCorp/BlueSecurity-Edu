@@ -40,7 +40,7 @@ export function createPages(base) {
         ${courseNavigation(course.id)}
         <div class="curriculum-panel"><div class="panel-intro"><h2>수강 안내</h2><dl class="course-facts">
         <div><dt>추천 대상</dt><dd>${course.audience}</dd></div><div><dt>선수 지식</dt><dd>${course.prerequisites}</dd></div><div><dt>학습 산출물</dt><dd>${course.outcome}</dd></div></dl>
-        ${link(`contact/?course=${course.id}`, `이 과정 교육 문의 ${icon('arrow')}`, 'button')}
+        ${link(`contact/?course=${course.id}`, `교육 문의 ${icon('arrow')}`, 'button')}
         </div><div><h2 class="curriculum-title">커리큘럼</h2>${modules(course)}</div></div>
         </div></section>`,
     })),
@@ -53,7 +53,7 @@ export function createPages(base) {
         </div></header><section class="section course-detail"><div class="container">${courseNavigation(advancedCourse.id)}
         ${advancedCourses.map(course => `<article class="curriculum-panel advanced-curriculum" aria-labelledby="${course.id}-title"><div class="panel-intro">
         <h2 id="${course.id}-title">${escape(course.title)}</h2><p>${escape(course.description)}</p>
-        ${link(`contact/?course=${course.id}`, `이 과정 교육 문의 ${icon('arrow')}`, 'button')}
+        ${link(`contact/?course=${course.id}`, `교육 문의 ${icon('arrow')}`, 'button')}
         </div>${modules(course)}</article>`).join('')}
         </div></section><section class="contact-section"><div class="container"><div class="compact-cta"><div><h2>그 밖의 교육 커리큘럼</h2><p>필요한 교육 주제와 대상을 알려주세요.</p></div>
         ${link('contact/?course=consultation', `커리큘럼 문의 ${icon('arrow')}`, 'button')}</div></div></section>`,
