@@ -6,7 +6,7 @@ const icon = id => `<svg class="icon" aria-hidden="true"><use href="#icon-${id}"
 export function createPages(base) {
   const catalog = [...courses, advancedCourse];
   const link = (path, label, className = 'text-link') => `<a class="${className}" href="${base}${path}" data-link>${label}</a>`;
-  const cta = () => `<section class="contact-section"><div class="container"><div class="compact-cta"><div><h2>필요한 교육을 문의하세요</h2><p>교육 대상·인원·희망 일정을 알려주세요.</p></div>${link('contact/', `교육 문의 ${icon('arrow')}`, 'button')}</div></div></section>`;
+  const cta = () => `<section class="contact-section"><div class="container"><div class="compact-cta"><div><h2>필요한 교육을 문의하세요</h2><p>교육 대상·인원·희망 일정을 알려주세요.</p></div>${link('contact/', '교육 문의', 'button')}</div></div></section>`;
   const heading = (title, description = '') => `<header class="page-heading"><div class="container"><h1 tabindex="-1">${title}</h1>${description ? `<p>${description}</p>` : ''}</div></header>`;
   const cards = (headingTag = 'h2') => `<div class="course-grid">${catalog.map(course => `<article class="course-card"><div class="course-body">
     <${headingTag}>${course.title}</${headingTag}><p>${course.description}</p>
@@ -28,7 +28,7 @@ export function createPages(base) {
     {
       id: 'courses', path: 'courses/', nav: 'courses', title: '교육과정 | BlueSecurity EDU',
       description: '인프라 진단, 웹 취약점 진단, 모의침투와 기타 심화 교육의 내용을 확인하세요.',
-      content: `${heading('교육과정', '업무와 경험에 맞는 과정을 선택하세요.')}<section class="section"><div class="container">${cards()}</div></section>${cta()}`,
+      content: `${heading('교육과정')}<section class="section"><div class="container">${cards()}</div></section>${cta()}`,
     },
     ...courses.map(course => ({
       id: course.id, path: `courses/${course.id}/`, nav: 'courses', title: `${course.title} 교육 | BlueSecurity EDU`, description: course.description,
@@ -39,7 +39,7 @@ export function createPages(base) {
         ${courseNavigation(course.id)}
         <div class="curriculum-panel"><div class="panel-intro"><h2>수강 안내</h2><dl class="course-facts">
         <div><dt>추천 대상</dt><dd>${course.audience}</dd></div><div><dt>선수 지식</dt><dd>${course.prerequisites}</dd></div><div><dt>학습 산출물</dt><dd>${course.outcome}</dd></div></dl>
-        ${link(`contact/?course=${course.id}`, `교육 문의 ${icon('arrow')}`, 'button')}
+        ${link(`contact/?course=${course.id}`, '교육 문의', 'button')}
         </div><div><h2 class="curriculum-title">커리큘럼</h2>${modules(course)}</div></div>
         </div></section>`,
     })),
@@ -52,10 +52,10 @@ export function createPages(base) {
         </div></header><section class="section course-detail"><div class="container">${courseNavigation(advancedCourse.id)}
         ${advancedCourses.map(course => `<article class="curriculum-panel advanced-curriculum" aria-labelledby="${course.id}-title"><div class="panel-intro">
         <h2 id="${course.id}-title">${escape(course.title)}</h2><p>${escape(course.description)}</p>
-        ${link(`contact/?course=${course.id}`, `교육 문의 ${icon('arrow')}`, 'button')}
+        ${link(`contact/?course=${course.id}`, '교육 문의', 'button')}
         </div>${modules(course)}</article>`).join('')}
         </div></section><section class="contact-section"><div class="container"><div class="compact-cta"><div><h2>그 밖의 교육 커리큘럼</h2><p>필요한 교육 주제와 대상을 알려주세요.</p></div>
-        ${link('contact/?course=consultation', `커리큘럼 문의 ${icon('arrow')}`, 'button')}</div></div></section>`,
+        ${link('contact/?course=consultation', '커리큘럼 문의', 'button')}</div></div></section>`,
     },
     {
       id: 'faq', path: 'faq/', nav: 'faq', title: '자주 묻는 질문 | BlueSecurity EDU',
@@ -72,7 +72,7 @@ export function createPages(base) {
       content: `${heading('교육 문의', '교육 대상·인원·희망 일정을 알려주세요.')}<section class="contact-section"><div class="container"><div class="contact-grid">
         <div class="contact-copy"><h2>필요한 교육을 문의하세요</h2><p>관심 과정을 선택하고 이메일로 문의해 주세요.</p></div>
         <div class="contact-card"><label for="inquiry-course">관심 교육과정</label><select id="inquiry-course"><option value="consultation">과정 선택 상담 / 기업 맞춤 교육</option>${[...courses, ...advancedCourses].map(course => `<option value="${course.id}">${escape(course.title)}</option>`).join('')}</select>
-        <a id="email-inquiry" class="button" href="mailto:${escape(company.email)}?subject=${encodeURIComponent('[BlueSecurity EDU] 교육 문의')}">이메일로 교육 문의 ${icon('mail')}</a>
+        <a id="email-inquiry" class="button" href="mailto:${escape(company.email)}?subject=${encodeURIComponent('[BlueSecurity EDU] 교육 문의')}">이메일로 교육 문의</a>
         <p class="email-hint">이메일 앱에서 문의 초안을 엽니다.</p><div class="email-address"><a href="mailto:${escape(company.email)}" id="contact-email">${escape(company.email)}</a><button type="button" id="copy-email" hidden>주소 복사</button></div><span id="copy-status" class="copy-status" role="status" aria-live="polite"></span>
         </div></div></div></section>`,
     },

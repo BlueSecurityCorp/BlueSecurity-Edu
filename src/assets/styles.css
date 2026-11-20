@@ -62,7 +62,7 @@ img { max-width: 100%; }
 
 .site-header { position: sticky; top: 0; z-index: 20; border-bottom: 1px solid var(--bs-color-border-default); background: rgb(255 255 255 / 95%); backdrop-filter: blur(12px); }
 .header-inner { display: flex; justify-content: space-between; align-items: center; max-width: 1200px; height: 64px; padding-inline: 24px; }
-.brand { display: inline-flex; align-items: center; flex-shrink: 0; }
+.brand { display: inline-flex; align-items: center; flex-shrink: 0; width: 160px; height: 32px; overflow: hidden; }
 .brand img { display: block; width: 160px; height: auto; }
 .main-navigation { display: flex; align-items: center; gap: 4px; }
 .main-navigation > a:not(.button) { padding: 8px 12px; border-radius: var(--bs-radius-lg); font-size: 14px; font-weight: 500; color: var(--bs-color-text-secondary); }
@@ -173,7 +173,6 @@ h2 { font-size: 28px; line-height: 1.4; }
 }
 @media (max-width: 600px) {
   .container { padding-inline: 20px; }
-  .brand img { width: 145px; }
   .hero-grid { padding-block: 36px; }
   h1 { font-size: 30px; line-height: 1.4; }
   h1 br { display: none; }
